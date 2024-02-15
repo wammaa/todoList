@@ -1,60 +1,97 @@
+@font-face {
+  font-family: 'Orbit-Regular';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2310@1.0/Orbit-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
 
 body{
   margin:0;
   background-image: url(images/background.jpg);
   background-repeat:no-repeat;
   background-size:cover;
+  font-family: 'Orbit-Regular';
 }
 .container{
   background-color: white;
   min-height: 100vh;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  max-width:800px;
 }
 .task-area{
   border:1px solid lightgray;
+  margin-top:10px;
 }
-.task-taps{
+.task-tabs{
   display:flex;
   border-bottom:1px solid lightgray;
   position:relative;
 }
-.task-taps div{
+.task-tabs div{
   padding:1em;
 }
 #under-line{
   height:4px;
   background-color:pink;
   position:absolute;
-  width:80px;
+  width:58px;
   left:0px;
   top:52px;
   padding:0;
+  transition:0.5s;
 }
 .task{
   display:flex;
   justify-content: space-between;
+}
+.task div:first-child{
   padding:1rem;
-  /* height:50px;
-  line-height: 50px; */
 }
 .task-done{
   text-decoration: line-through;
   background-color: gray;
-  flex-grow: 1;
-  padding-right: 1em;
+  width:100%;
 }
 .check-button{
-  background-color: transparent;
-  border:none;
   color:green;
 }
 .return-button{
-  background-color: transparent;
-  border:none;
   color:gray;
 }
 .delete-button{
+  color:red;
+}
+.task-tabs div{
+  cursor:pointer;
+}
+.button-area{
+  display:flex;
+}
+.button-area button{
   background-color: transparent;
   border:none;
-  color:red;
+  width:80px;
+}
+.button-area button:hover:first-child{
+  background-color: rgb(141, 227, 141);
+}
+.button-area button:hover:nth-child(2){
+  background-color: rgb(236, 161, 161);
+}
+.input-area input{
+  width:50%;
+}
+.input-area input:focus{
+  outline:1px solid rgb(171, 171, 220);
+  border:1px solid rgb(171, 171, 220);
+}
+.input-area input:focus::placeholder{
+  color:transparent;
+}
+.input-area button{
+  background-color: rgb(171, 171, 220);
+  border:none;
+}
+.input-area button:hover{
+  background-color:  rgb(145, 145, 221);
 }
