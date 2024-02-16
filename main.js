@@ -1,23 +1,21 @@
+//유저가 값을 입력한다
+//+버튼을 누르면, 할일이 추가된다
+//delete버튼을 누르면 할일이 삭제된다
+//check버튼을 누르면 할일이 끝나면서 밑줄이 생긴다
+//check버튼을 누르면 true false
+//true면 끝난걸로 간주하고 밑줄 false면 진행중
+//진행중 끝남 탭을 누르면 바가 이동한다
+//끝남 탭은 끝난 아이템만, 진행중 탭은 진행중인 아이템만 나온다
+//전체탭을 누르면 전체 아이템으로 돌아옴
 let taskInput = document.getElementById("task-input");
 let addButton = document.getElementById("add-button");
-let tabs = document.querySelectorAll(".task-tabs div");
+let tabs = document.querySelectorAll(".task-tabs div")
 let taskList = [];
-let mode = 'all';
+let mode = "all";
 let filterList = [];
 let underLine = document.getElementById("under-line");
 
-tabs.forEach((menu) =>
-  menu.addEventListener('click', (e) => underLineIndicator(e))
-);
-
-let underLineIndicator = (e) => {
-  underLine.style.left = e.currentTarget.offsetLeft + 'px';
-  underLine.style.width = e.currentTarget.offsetWidth + 'px';
-  underLine.style.top =
-    (e.currentTarget.offsetTop - 3) + e.currentTarget.offsetHeight + 'px';
-};
-
-addButton.addEventListener("click", addTask);
+addButton.addEventListener("click", addTask)
 taskInput.addEventListener("keydown", function (event) {
   if (event.keyCode === 13) {
     addTask(event);
@@ -25,23 +23,23 @@ taskInput.addEventListener("keydown", function (event) {
 });
 
 for(let i = 1; i < tabs.length; i++){
-  tabs[i].addEventListener("click",function(event){
+  tabs[i].addEventListener("click", function(event){
     filter(event);
   });
 }
-console.log(tabs);
 
 function addTask(){
-  if(taskInput.value == ""){
-    return;
+  let taskValue = taskInput.value;
+  if(taskValue === ""){
+    return alert("할일을 입력하세요")
   }
   let task = {
-    id : randomIDGenerate(),
+    id : randomID(),
     taskContent : taskInput.value,
     isComplete : false
   }
   taskList.push(task);
-  console.log(taskList);
+  taskInput.value = "";
   render();
 }
 
@@ -49,13 +47,13 @@ function render(){
   let list = [];
   if(mode === "all"){
     list = taskList;
-  } else if(mode === "ongoing" || mode === "done"){
+  }else if(mode === "ongoing" || mode === "done"){
     list = filterList;
   }
   let resultHTML = '';
   for(let i = 0; i < list.length; i++){
     if(list[i].isComplete == true){
-      resultHTML +=`<div class="task">
+      resultHTML += `<div class="task">
       <div class="task-done">${list[i].taskContent}</div>
       <div class="button-area">
         <button onclick="toggleComplete('${list[i].id}')" class="return-button"><i class="fa-solid fa-arrow-rotate-left"></i></button>
@@ -63,10 +61,10 @@ function render(){
       </div>
     </div>`
     }else{
-    resultHTML += `<div class="task">
+      resultHTML += `<div class="task">
     <div>${list[i].taskContent}</div>
     <div class="button-area">
-      <button onclick="toggleComplete('${list[i].id}')" class="check-button"><i class="fa-solid fa-check"></i></button>
+      <button onclick="toggleComplete('${list[i].id}')" class="check-button"><i class="fa-solid fa-check"></i></i></button>
       <button onclick="deleteTask('${list[i].id}')" class="delete-button"><i class="fa-solid fa-trash"></i></button>
     </div>
   </div>`
@@ -82,7 +80,7 @@ function toggleComplete(id){
       break;
     }
   }
-  filter()
+  filter();
 }
 
 function deleteTask(id){
@@ -92,12 +90,16 @@ function deleteTask(id){
       break;
     }
   }
-  render();
+  filter();
 }
 
 function filter(event){
   if(event){
     mode = event.target.id;
+    underLine.style.left = event.currentTarget.offsetLeft + 'px';
+    underLine.style.width = event.currentTarget.offsetWidth + 'px';
+    underLine.style.top =
+      (event.currentTarget.offsetTop - 3) + event.currentTarget.offsetHeight + 'px';
   }
   filterList = [];
   if(mode === "all"){
@@ -109,17 +111,18 @@ function filter(event){
       }
     }
     render();
-    console.log("진행중", filterList);
+    console.log("진행중", filterList)
   }else if(mode === "done"){
     for(let i = 0; i < taskList.length; i++){
       if(taskList[i].isComplete === true){
         filterList.push(taskList[i]);
       }
     }
-    render();
+    render();    
   }
 }
 
-function randomIDGenerate(){
+function randomID(){
   return '_' + Math.random().toString(36).substr(2, 9);
 }
+

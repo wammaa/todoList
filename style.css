@@ -71,6 +71,7 @@ body{
   background-color: transparent;
   border:none;
   width:80px;
+  transition: 1s;
 }
 .button-area button:hover:first-child{
   background-color: rgb(141, 227, 141);
